@@ -1,0 +1,35 @@
+services:
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    restart: unless-stopped
+    volumes:
+      - pb_data:/pb/pb_data
+    ports:
+      - "8090:8090"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pocketbase.rule=Host(`pb.yourdomain.com`)"
+      - "traefik.http.routers.pocketbase.tls=true"
+      - "traefik.http.routers.pocketbase.tls.certresolver=letsencrypt"
+      - "traefik.http.services.pocketbase.loadbalancer.server.port=8090"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_PB_URL=https://pb.yourdomain.com
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - pocketbase
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.studyvault.rule=Host(`vault.yourdomain.com`)"
+      - "traefik.http.routers.studyvault.tls=true"
+      - "traefik.http.routers.studyvault.tls.certresolver=letsencrypt"
+      - "traefik.http.services.studyvault.loadbalancer.server.port=80"
+
+volumes:
+  pb_data:

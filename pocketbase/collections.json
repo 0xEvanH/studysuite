@@ -1,0 +1,95 @@
+[
+  {
+    "name": "notes",
+    "type": "base",
+    "fields": [
+      { "name": "user",     "type": "relation", "required": true,  "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "title",    "type": "text",     "required": true,  "max": 500 },
+      { "name": "content",  "type": "text",     "required": false },
+      { "name": "category", "type": "text",     "required": false, "max": 100 },
+      { "name": "tags",     "type": "json",     "required": false }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  },
+  {
+    "name": "timer_logs",
+    "type": "base",
+    "fields": [
+      { "name": "user",     "type": "relation", "required": true,  "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "subject",  "type": "text",     "required": false, "max": 200 },
+      { "name": "duration", "type": "number",   "required": true,  "min": 0 },
+      { "name": "mode",     "type": "text",     "required": false, "max": 50 }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  },
+  {
+    "name": "goals",
+    "type": "base",
+    "fields": [
+      { "name": "user",        "type": "relation", "required": true,  "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "title",       "type": "text",     "required": true,  "max": 500 },
+      { "name": "description", "type": "text",     "required": false },
+      { "name": "completed",   "type": "bool",     "required": false },
+      { "name": "due_date",    "type": "text",     "required": false, "max": 20 }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  },
+  {
+    "name": "tasks",
+    "type": "base",
+    "fields": [
+      { "name": "user",       "type": "relation", "required": true,  "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "goal",       "type": "relation", "required": true,  "collectionId": "goals", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "title",      "type": "text",     "required": true,  "max": 500 },
+      { "name": "completed",  "type": "bool",     "required": false },
+      { "name": "sort_order", "type": "number",   "required": false, "min": 0 }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  },
+  {
+    "name": "decks",
+    "type": "base",
+    "fields": [
+      { "name": "user",        "type": "relation", "required": true,  "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "name",        "type": "text",     "required": true,  "max": 200 },
+      { "name": "description", "type": "text",     "required": false },
+      { "name": "color",       "type": "text",     "required": false, "max": 20 }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  },
+  {
+    "name": "flashcards",
+    "type": "base",
+    "fields": [
+      { "name": "user",  "type": "relation", "required": true, "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "deck",  "type": "relation", "required": true, "collectionId": "decks", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "front", "type": "text",     "required": true, "max": 2000 },
+      { "name": "back",  "type": "text",     "required": true, "max": 2000 }
+    ],
+    "listRule":   "@request.auth.id = user.id",
+    "viewRule":   "@request.auth.id = user.id",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": "@request.auth.id = user.id",
+    "deleteRule": "@request.auth.id = user.id"
+  }
+]
