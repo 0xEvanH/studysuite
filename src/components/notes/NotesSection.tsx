@@ -23,7 +23,7 @@ export const NotesSection: FC<{ userId: string }> = ({ userId }) => {
 
   const load = useCallback(async () => {
     try {
-      const records = await pb.collection('notes').getFullList<Note>({ sort: '-updated' })
+      const records = await pb.collection('notes').getFullList<Note>({ sort: '-updated', filter: `user = "${userId}"` })
       setNotes(records)
     } catch {
       toast.error('Failed to load notes')
@@ -221,7 +221,7 @@ const ListRow: FC<{
         style={{ display: 'grid', gridTemplateColumns: '1fr 120px 160px auto', alignItems: 'center', gap: '1rem', padding: '0.85rem 0', cursor: 'pointer', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(8px)', transition: `opacity 0.5s ease ${delay}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${delay}s`, background: cardStyle === 'filled' && hovered ? WDDD : 'transparent' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
-          <StickyNote className="w-3.5 h-3.5 flex-shrink-0" style={{ color: WDD }} />
+          <StickyNote className="w-3.5 h-3.5 shrink-0" style={{ color: WDD }} />
           <span style={{ fontFamily: 'var(--font)', fontWeight: 600, fontSize: '0.88rem', color: hovered ? W : 'rgba(255,255,255,0.85)', transform: hovered ? 'translateX(4px)' : 'none', transition: 'color 0.25s, transform 0.35s cubic-bezier(0.16,1,0.3,1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {note.title}
           </span>

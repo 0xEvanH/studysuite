@@ -29,7 +29,7 @@ export const FlashcardsSection: FC<{ userId: string }> = ({ userId }) => {
 
   const fetchDecks = async () => {
     try {
-      const records = await pb.collection('decks').getFullList<Deck>({ sort: '-created' })
+      const records = await pb.collection('decks').getFullList<Deck>({ sort: '-created', filter: `user = "${userId}"` })
       setDecks(records)
     } catch { toast.error('Failed to load decks') }
     setLoading(false)
