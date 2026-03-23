@@ -9,7 +9,7 @@ COPY . .
 ARG VITE_PB_URL
 ENV VITE_PB_URL=$VITE_PB_URL
 
-RUN bun run build
+RUN bunx vite build
 
 FROM nginx:alpine AS runner
 COPY --from=builder /app/dist /usr/share/nginx/html
