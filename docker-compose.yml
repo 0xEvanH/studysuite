@@ -8,7 +8,7 @@ services:
       - "8090:8090"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.pocketbase.rule=Host(`pb.yourdomain.com`)"
+      - "traefik.http.routers.pocketbase.rule=Host(`pb.evhsync.com`)"
       - "traefik.http.routers.pocketbase.tls=true"
       - "traefik.http.routers.pocketbase.tls.certresolver=letsencrypt"
       - "traefik.http.services.pocketbase.loadbalancer.server.port=8090"
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_PB_URL=https://pb.yourdomain.com
+        - VITE_PB_URL=https://pb.evhsync.com.com
     restart: unless-stopped
     ports:
       - "3000:80"
@@ -26,7 +26,7 @@ services:
       - pocketbase
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.studyvault.rule=Host(`vault.yourdomain.com`)"
+      - "traefik.http.routers.studyvault.rule=Host(`study.evhsync.com`)"
       - "traefik.http.routers.studyvault.tls=true"
       - "traefik.http.routers.studyvault.tls.certresolver=letsencrypt"
       - "traefik.http.services.studyvault.loadbalancer.server.port=80"
