@@ -72,7 +72,7 @@ export default function App() {
   return (
     <SettingsProvider>
       <div style={{ display: 'flex', height: '100dvh', background: '#0a0a0a', overflow: 'hidden' }}>
-        {/* Desktop sidebar — hidden on mobile via CSS */}
+        {/* Desktop sidebar, hidden on mobile via CSS */}
         <Sidebar active={section} onChange={setSection} />
 
         <main style={{ flex: 1, overflow: 'hidden', position: 'relative', minWidth: 0 }}>
@@ -94,7 +94,7 @@ export default function App() {
           </AnimatePresence>
         </main>
 
-        {/* Mobile bottom nav — hidden on desktop via CSS */}
+        {/* Mobile bottom nav, hidden on desktop via CSS */}
         <BottomNav active={section} onChange={setSection} />
       </div>
       <Toaster position="bottom-center" toastOptions={toastStyle} />

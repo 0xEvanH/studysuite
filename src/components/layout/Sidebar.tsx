@@ -110,7 +110,7 @@ export const Sidebar: FC<Props> = ({ active, onChange }) => {
           onMouseEnter={e => (e.currentTarget.style.color = '#f87171')}
           onMouseLeave={e => (e.currentTarget.style.color = WD)}
         >
-          <LogOut className="w-4 h-4 flex-shrink-0" />
+          <LogOut className="w-4 h-4 shrink-0" />
           {showLabel && <span style={{ whiteSpace: 'nowrap' }}>Sign out</span>}
         </button>
       </div>

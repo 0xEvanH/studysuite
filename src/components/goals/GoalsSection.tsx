@@ -56,7 +56,7 @@ export const GoalsSection: FC<{ userId: string }> = ({ userId }) => {
   const addTask = async (goalId: string, title: string) => {
     if (!title.trim()) return
     try {
-      const record = await pb.collection('tasks').create<Task>({ user: pb.authStore.model?.id,
+      const record = await pb.collection('tasks').create<Task>({
         goal: goalId,
         user: userId,
         title: title.trim(),
@@ -170,7 +170,7 @@ const GoalRow: FC<{
 
             {addingTask ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0' }}>
-                <Circle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: WDD }} />
+                <Circle className="w-3.5 h-3.5 shrink-0" style={{ color: WDD }} />
                 <input value={newTask} onChange={e => setNewTask(e.target.value)} placeholder="New task…" autoFocus
                   onKeyDown={e => { if (e.key === 'Enter') { onAddTask(goal.id, newTask); setNewTask(''); setAddingTask(false) } if (e.key === 'Escape') setAddingTask(false) }}
                   style={{ flex: 1, background: 'none', border: 'none', borderBottom: `1px solid ${WDD}`, color: W, fontFamily: 'var(--font)', fontSize: '0.82rem', padding: '0.2rem 0', outline: 'none' }}
