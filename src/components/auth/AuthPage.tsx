@@ -15,7 +15,7 @@ export function AuthPage() {
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (!email || !password) return
     setLoading(true)
@@ -36,7 +36,6 @@ export function AuthPage() {
 
   return (
     <div className="auth-split" style={{ background: '#0a0a0a' }}>
-      {/* Left — decorative panel, hidden on mobile */}
       <div
         className="auth-left"
         style={{
@@ -57,19 +56,17 @@ export function AuthPage() {
             StudyVault
           </h1>
           <p style={{ marginTop: '0.75rem', fontSize: '0.9rem', color: WD, fontFamily: 'var(--font)', maxWidth: 280, margin: '0.75rem auto 0' }}>
-            Notes, timers, goals and flashcards — all in one place.
+            Notes, timers, goals and flashcards, all in one place.
           </p>
         </div>
       </div>
 
-      {/* Right — form panel */}
       <div className="auth-right" style={{ background: '#0d0d0d' }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Mobile-only logo */}
           <div className="mobile-logo-header" style={{ marginBottom: '2rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
               <Logo size={24} />
@@ -94,7 +91,6 @@ export function AuthPage() {
             {mode === 'in' ? 'Sign in to your vault' : 'Start organising your studies'}
           </p>
 
-          {/* Tab switcher */}
           <div style={{ display: 'flex', gap: 0, borderBottom: `1px solid ${WDD}`, marginBottom: '2rem' }}>
             {(['in', 'up'] as Mode[]).map(m => (
               <button
