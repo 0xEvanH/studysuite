@@ -14,7 +14,7 @@ export function AuthPage() {
   const [showPw, setShowPw] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = async (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (!email || !password) return
     setLoading(true)
