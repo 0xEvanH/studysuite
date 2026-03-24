@@ -101,7 +101,7 @@ export const TimerSection: FC<{ userId: string }> = ({ userId }) => {
     .reduce((a, l) => a + l.duration, 0)
 
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <section ref={ref as React.RefObject<HTMLElement>} className="sp" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '2.5rem', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
         <div>
           <h2 style={{ fontFamily: 'var(--font)', fontWeight: 700, fontSize: 'clamp(1.6rem,3vw,2.2rem)', letterSpacing: '-0.03em', color: W, margin: 0, lineHeight: 1 }}>Study Timer</h2>
@@ -114,7 +114,7 @@ export const TimerSection: FC<{ userId: string }> = ({ userId }) => {
         </button>
       </div>
 
-      <div style={{ flex: 1, display: 'flex', gap: '3rem', overflow: 'hidden' }}>
+      <div className="timer-layout">
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2rem' }}>
           <div style={{ display: 'flex', gap: 0, borderBottom: `1px solid ${WDD}`, opacity: visible ? 1 : 0, transition: 'opacity 0.5s ease 0.1s' }}>
             {(['pomodoro', 'short', 'long'] as TimerMode[]).map(m => (

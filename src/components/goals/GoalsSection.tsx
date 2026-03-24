@@ -56,9 +56,9 @@ export const GoalsSection: FC<{ userId: string }> = ({ userId }) => {
   const addTask = async (goalId: string, title: string) => {
     if (!title.trim()) return
     try {
-      const record = await pb.collection('tasks').create<Task>({
-        user: userId,
+      const record = await pb.collection('tasks').create<Task>({ user: pb.authStore.model?.id,
         goal: goalId,
+        user: userId,
         title: title.trim(),
         completed: false,
         sort_order: tasks.filter(t => t.goal === goalId).length,
@@ -73,7 +73,7 @@ export const GoalsSection: FC<{ userId: string }> = ({ userId }) => {
   const doneTasks = tasks.filter(t => t.completed).length
 
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <section ref={ref as React.RefObject<HTMLElement>} className="sp" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '2rem', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
         <div>
           <h2 style={{ fontFamily: 'var(--font)', fontWeight: 700, fontSize: 'clamp(1.6rem,3vw,2.2rem)', letterSpacing: '-0.03em', color: W, margin: 0, lineHeight: 1 }}>Goals</h2>
@@ -170,7 +170,7 @@ const GoalRow: FC<{
 
             {addingTask ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.4rem 0' }}>
-                <Circle className="w-3.5 h-3.5 shrink-0" style={{ color: WDD }} />
+                <Circle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: WDD }} />
                 <input value={newTask} onChange={e => setNewTask(e.target.value)} placeholder="New task…" autoFocus
                   onKeyDown={e => { if (e.key === 'Enter') { onAddTask(goal.id, newTask); setNewTask(''); setAddingTask(false) } if (e.key === 'Escape') setAddingTask(false) }}
                   style={{ flex: 1, background: 'none', border: 'none', borderBottom: `1px solid ${WDD}`, color: W, fontFamily: 'var(--font)', fontSize: '0.82rem', padding: '0.2rem 0', outline: 'none' }}

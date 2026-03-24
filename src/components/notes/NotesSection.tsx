@@ -23,14 +23,14 @@ export const NotesSection: FC<{ userId: string }> = ({ userId }) => {
 
   const load = useCallback(async () => {
     try {
-      const records = await pb.collection('notes').getFullList<Note>({ sort: '-updated', filter: `user = "${userId}"` })
+      const records = await pb.collection('notes').getFullList<Note>({ sort: '-updated' })
       setNotes(records)
     } catch {
       toast.error('Failed to load notes')
     } finally {
       setLoading(false)
     }
-  }, [userId])
+  }, [])
 
   useEffect(() => {
     let alive = true
@@ -83,7 +83,7 @@ export const NotesSection: FC<{ userId: string }> = ({ userId }) => {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
+      className="sp" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}
     >
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '2rem', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
         <div>
@@ -148,9 +148,9 @@ const NotesGrid: FC<{
       </div>
     )
   }
-  const cols = layout === 'dense' ? 4 : 3
+  const cls = layout === 'dense' ? 'notes-grid g4' : 'notes-grid g3'
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: layout === 'dense' ? '0.75rem' : '1rem' }}>
+    <div className={cls} style={{}}>
       {notes.map((note, i) => (
         <GridCard key={note.id} note={note} delay={i * 0.04} visible={visible}
           cardStyle={cardStyle} onEdit={onEdit} onDelete={onDelete} onView={onView} />
@@ -218,16 +218,16 @@ const ListRow: FC<{
       <div
         onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
         onClick={() => onView(note)}
-        style={{ display: 'grid', gridTemplateColumns: '1fr 120px 160px auto', alignItems: 'center', gap: '1rem', padding: '0.85rem 0', cursor: 'pointer', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(8px)', transition: `opacity 0.5s ease ${delay}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${delay}s`, background: cardStyle === 'filled' && hovered ? WDDD : 'transparent' }}
+        className="list-row-grid" style={{ padding: '0.85rem 0', cursor: 'pointer', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(8px)', transition: `opacity 0.5s ease ${delay}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${delay}s`, background: cardStyle === 'filled' && hovered ? WDDD : 'transparent' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', minWidth: 0 }}>
-          <StickyNote className="w-3.5 h-3.5 shrink-0" style={{ color: WDD }} />
+          <StickyNote className="w-3.5 h-3.5 flex-shrink-0" style={{ color: WDD }} />
           <span style={{ fontFamily: 'var(--font)', fontWeight: 600, fontSize: '0.88rem', color: hovered ? W : 'rgba(255,255,255,0.85)', transform: hovered ? 'translateX(4px)' : 'none', transition: 'color 0.25s, transform 0.35s cubic-bezier(0.16,1,0.3,1)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
             {note.title}
           </span>
         </div>
-        <span style={{ fontFamily: 'var(--font)', fontSize: '0.72rem', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--a)' }}>{note.category}</span>
-        <span style={{ fontFamily: 'var(--font)', fontSize: '0.75rem', color: WD, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        <span className="list-row-hide" style={{ fontFamily: 'var(--font)', fontSize: '0.72rem', letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--a)' }}>{note.category}</span>
+        <span className="list-row-hide" style={{ fontFamily: 'var(--font)', fontSize: '0.75rem', color: WD, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
           {note.content.slice(0, 60)}{note.content.length > 60 ? '…' : ''}
         </span>
         <div style={{ display: 'flex', gap: '0.25rem', opacity: hovered ? 1 : 0, transition: 'opacity 0.2s' }} onClick={e => e.stopPropagation()}>

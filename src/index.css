@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --a:    #c9943a;
@@ -6,13 +6,10 @@
   --ag:   rgba(201, 148, 58, 0.12);
   --ab:   #e6b050;
   --font: 'DM Sans', system-ui, sans-serif;
+  --nav:  64px;
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body, #root {
   height: 100%;
@@ -23,49 +20,171 @@ html, body, #root {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input, textarea, select, button {
-  font-family: var(--font);
-}
-
+input, textarea, select, button { font-family: var(--font); }
 input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.5); }
+select option { background: #111; color: #fff; }
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+::selection { background: var(--ag); color: var(--ab); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Sidebar vs bottom nav ─────────────────────── */
+.sidebar-root {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  background: #0d0d0d;
+  flex-shrink: 0;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0.5);
+.bottom-nav-root {
+  display: none;
 }
 
-select option {
-  background: #111;
-  color: #fff;
+@media (max-width: 640px) {
+  .sidebar-root {
+    display: none;
+  }
+  .bottom-nav-root {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav);
+    background: #0d0d0d;
+    align-items: stretch;
+    z-index: 50;
+  }
 }
 
-::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+/* ── Section padding ───────────────────────────── */
+.sp {
+  padding: 2.5rem;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.2);
+@media (max-width: 640px) {
+  .sp {
+    padding: 1.25rem 1rem;
+    padding-bottom: calc(var(--nav) + 1.25rem);
+  }
 }
 
-::selection {
-  background: var(--ag);
-  color: var(--ab);
+/* ── Notes grid ────────────────────────────────── */
+.notes-grid {
+  display: grid;
+  gap: 1rem;
+}
+.notes-grid.g3 { grid-template-columns: repeat(3, 1fr); }
+.notes-grid.g4 { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+@media (max-width: 1024px) {
+  .notes-grid.g3 { grid-template-columns: repeat(2, 1fr); }
+  .notes-grid.g4 { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 640px) {
+  .notes-grid.g3,
+  .notes-grid.g4 { grid-template-columns: 1fr; gap: 0.65rem; }
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* ── List note row ─────────────────────────────── */
+.list-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 100px 150px auto;
+  align-items: center;
+  gap: 1rem;
+}
+@media (max-width: 700px) {
+  .list-row-grid {
+    grid-template-columns: 1fr auto;
+  }
+  .list-row-hide { display: none !important; }
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: none; }
+/* ── Deck grid ─────────────────────────────────── */
+.deck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+@media (max-width: 500px) {
+  .deck-grid { grid-template-columns: 1fr 1fr; gap: 0.65rem; }
+}
+
+/* ── Timer layout ──────────────────────────────── */
+.timer-layout {
+  flex: 1;
+  display: flex;
+  gap: 3rem;
+  overflow: hidden;
+}
+@media (max-width: 640px) {
+  .timer-layout { flex-direction: column; gap: 1.5rem; overflow: auto; }
+}
+
+/* ── Settings columns ──────────────────────────── */
+.settings-num-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (max-width: 480px) {
+  .settings-num-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── Auth page ─────────────────────────────────── */
+.auth-split {
+  display: flex;
+  min-height: 100dvh;
+}
+.auth-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.auth-right {
+  width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+  border-left: 1px solid rgba(255,255,255,0.06);
+}
+@media (max-width: 768px) {
+  .auth-right { display: none; }
+  .auth-left { padding: 1.5rem 1.25rem; }
+}
+
+/* ── Flashcard study ───────────────────────────── */
+.study-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ── Auth mobile logo header ───────────────────── */
+.mobile-logo-header { display: none; }
+@media (max-width: 768px) {
+  .mobile-logo-header { display: block; }
+}
+
+/* ── Safe area for iOS bottom bar ──────────────── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottom-nav-root {
+    padding-bottom: env(safe-area-inset-bottom);
+    height: calc(var(--nav) + env(safe-area-inset-bottom));
+  }
+  @media (max-width: 640px) {
+    .sp {
+      padding-bottom: calc(var(--nav) + env(safe-area-inset-bottom) + 1.25rem);
+    }
+  }
 }

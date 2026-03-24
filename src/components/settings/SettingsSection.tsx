@@ -39,7 +39,7 @@ export const SettingsSection: FC = () => {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      style={{ padding: '2.5rem', height: '100%', overflowY: 'auto' }}
+      className="sp" style={{ height: '100%', overflowY: 'auto' }}
     >
       <div
         style={{
@@ -155,7 +155,7 @@ export const SettingsSection: FC = () => {
 
         <Group label="Timer" delay={0.3} visible={visible}>
           <ToggleRow label="Sound on session end" active={s.timerSound} onChange={v => set({ timerSound: v })} />
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '1rem', marginTop: '1rem' }}>
+          <div className="settings-num-grid">
             <NumInput label="Focus" value={s.pomodoroMins} min={1} max={90} onChange={v => set({ pomodoroMins: v })} />
             <NumInput label="Short break" value={s.shortBreakMins} min={1} max={30} onChange={v => set({ shortBreakMins: v })} />
             <NumInput label="Long break" value={s.longBreakMins} min={5} max={60} onChange={v => set({ longBreakMins: v })} />

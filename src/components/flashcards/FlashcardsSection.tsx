@@ -29,7 +29,7 @@ export const FlashcardsSection: FC<{ userId: string }> = ({ userId }) => {
 
   const fetchDecks = async () => {
     try {
-      const records = await pb.collection('decks').getFullList<Deck>({ sort: '-created', filter: `user = "${userId}"` })
+      const records = await pb.collection('decks').getFullList<Deck>({ sort: '-created' })
       setDecks(records)
     } catch { toast.error('Failed to load decks') }
     setLoading(false)
@@ -69,7 +69,7 @@ export const FlashcardsSection: FC<{ userId: string }> = ({ userId }) => {
   const prev = () => { setFlipped(false); setTimeout(() => setIdx(i => Math.max(0, i - 1)), 150) }
 
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} style={{ padding: '2.5rem', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <section ref={ref as React.RefObject<HTMLElement>} className="sp" style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '2rem', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
           {view !== 'decks' && (
@@ -141,7 +141,7 @@ const DeckGrid: FC<{ decks: Deck[]; visible: boolean; onOpen: (d: Deck) => void;
     </div>
   )
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
+    <div className="deck-grid">
       {decks.map((d, i) => <DeckCard key={d.id} deck={d} delay={i * 0.05} visible={visible} onOpen={onOpen} onEdit={onEdit} onDelete={onDelete} />)}
     </div>
   )
@@ -151,19 +151,17 @@ const DeckCard: FC<{ deck: Deck; delay: number; visible: boolean; onOpen: (d: De
   const [h, setH] = useState(false)
   return (
     <div onMouseEnter={() => setH(true)} onMouseLeave={() => setH(false)} onClick={() => onOpen(deck)}
-      style={{ padding: '1.25rem', borderRadius: 6, border: `1px solid ${h ? deck.color + '44' : WDD}`, cursor: 'pointer', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: `opacity 0.55s ease ${delay}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${delay}s, border-color 0.2s`, position: 'relative', overflow: 'hidden' }}
+      style={{ padding: '1.1rem', borderRadius: 6, border: `1px solid ${h ? deck.color + '55' : WDD}`, cursor: 'pointer', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(12px)', transition: `opacity 0.55s ease ${delay}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${delay}s, border-color 0.2s`, position: 'relative', overflow: 'hidden' }}
     >
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: deck.color, opacity: h ? 1 : 0.4, transition: 'opacity 0.2s' }} />
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '0.5rem', marginBottom: '0.75rem' }}>
-        <div style={{ width: 32, height: 32, borderRadius: 6, background: deck.color + '22', border: `1px solid ${deck.color}44`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Layers className="w-4 h-4" style={{ color: deck.color }} />
-        </div>
-        <div style={{ display: 'flex', gap: '0.15rem', opacity: h ? 1 : 0, transition: 'opacity 0.2s' }} onClick={e => e.stopPropagation()}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: deck.color, opacity: h ? 1 : 0.5, transition: 'opacity 0.2s' }} />
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.6rem', marginTop: '0.35rem' }}>
+        <div style={{ width: 8, height: 8, borderRadius: '50%', background: deck.color, flexShrink: 0 }} />
+        <div style={{ display: 'flex', gap: '0.1rem', opacity: h ? 1 : 0, transition: 'opacity 0.2s' }} onClick={e => e.stopPropagation()}>
           <IconBtn icon={<Edit2 className="w-3.5 h-3.5" />} onClick={() => onEdit(deck)} />
           <IconBtn icon={<Trash2 className="w-3.5 h-3.5" />} onClick={() => onDelete(deck.id)} danger />
         </div>
       </div>
-      <h3 style={{ fontFamily: 'var(--font)', fontWeight: 600, fontSize: '0.92rem', color: h ? W : 'rgba(255,255,255,0.85)', margin: '0 0 0.3rem', letterSpacing: '-0.01em', transform: h ? 'translateX(3px)' : 'none', transition: 'color 0.2s, transform 0.3s cubic-bezier(0.16,1,0.3,1)' }}>{deck.name}</h3>
+      <h3 style={{ fontFamily: 'var(--font)', fontWeight: 600, fontSize: '0.9rem', color: h ? W : 'rgba(255,255,255,0.85)', margin: '0 0 0.3rem', letterSpacing: '-0.01em', transform: h ? 'translateX(3px)' : 'none', transition: 'color 0.2s, transform 0.3s cubic-bezier(0.16,1,0.3,1)' }}>{deck.name}</h3>
       {deck.description && <p style={{ fontFamily: 'var(--font)', fontSize: '0.75rem', color: WD, margin: 0, lineHeight: 1.4 }}>{deck.description}</p>}
     </div>
   )
