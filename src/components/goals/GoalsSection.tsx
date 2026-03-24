@@ -1,5 +1,5 @@
 import { useState, useEffect, type FC } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { Plus, Target, Check, Trash2, Edit2, X, ChevronDown, ChevronRight, Circle } from 'lucide-react'
 import { pb } from '../../lib/pb'
 import toast from 'react-hot-toast'

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { pb } from '../../lib/pb'
 import toast from 'react-hot-toast'
 import { ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react'

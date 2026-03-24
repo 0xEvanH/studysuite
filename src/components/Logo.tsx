@@ -1,5 +1,5 @@
 import type { FC, CSSProperties } from 'react'
-import logoUrl from '/favicon.svg'
+import logoUrl from '/logo.svg'
 
 interface Props {
   size?: number

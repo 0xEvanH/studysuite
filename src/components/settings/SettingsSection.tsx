@@ -1,5 +1,5 @@
 import { type FC } from 'react'
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useSettings } from '../../hooks/useSettings'
 import type { Theme, FontStyle, NoteLayout, CardStyle } from '../../types'
 import { useReveal } from '../../hooks/useReveal'

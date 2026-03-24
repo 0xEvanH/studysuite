@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, type FC } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence } from 'motion/react'
 import { Play, Pause, RotateCcw, Coffee, Brain, List, X } from 'lucide-react'
 import { pb } from '../../lib/pb'
 import toast from 'react-hot-toast'
