@@ -30,7 +30,7 @@ export const NotesSection: FC<{ userId: string }> = ({ userId }) => {
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [userId])
 
   useEffect(() => {
     let alive = true
